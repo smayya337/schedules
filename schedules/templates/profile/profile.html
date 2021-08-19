@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Profile</h2>
+    <p>You are {{ request.user.username }}, {{ request.user.preferred_name }} {{ request.user.last_name }}.</p>
+
+    <h4>Data Publication</h4>
+    <div class="container">
+        {% if request.user.is_student %}
+            {% crispy profile_form %}
+        {% else %}
+            <p>You are not a student, so you cannot publish data.</p>
+        {% endif %}
+    </div>
+
+    <h4>Decisions</h4>
+    <div class="container">
+        {% if request.user.is_student %}
+            <div class="pt-3 pb-3">
+                <a href="{% url "profile:period_add" %}" class="btn btn-outline-primary">Add period</a>
+            </div>
+
+            <p>Your current classes are:</p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Period Number</th>
+                        <th scope="col">Teacher</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for period in periods_list %}
+                        <tr>
+                            <td>{{ period.number }}</td>
+                            <td>{{ period.teacher.name }}</td>
+                            <td>
+                                {# edit button #}
+                                <a href="{% url "profile:period_edit" period.id %}" class="btn btn-outline-warning" aria-label="Edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                {# delete #}
+                                <a href="{% url "profile:period_delete" period.id %}" class="btn btn-outline-danger" aria-label="Delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>There is no data to display.</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You are not a student, therefore you cannot add classes.</p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% load bootstrap_pagination %}
+
+{% block content %}
+    <h2>Student Destinations</h2>
+
+    <p><b>Note</b>: All data is self-reported. We do not make any claim as to the accuracy of this data.</p>
+
+    {% if teacher or search_query %}
+        <p>
+            Only showing students {% if teacher %}reporting classes with {{ teacher }}
+            {% if search_query %}and {% endif %}{% endif %}{% if search_query %}matching {{ search_query }}{% endif %}.
+            Navigate <a href="{% url "schedules:students" %}">here</a> to reset.
+        </p>
+    {% endif %}
+
+    <div class="container pb-3">
+        <form method="get">
+            <div class="form-floating mb-3">
+                <div class="input-group">
+                    <div class="input-group-text"><label for="search"><i class="fas fa-search" aria-label="Search"></i></label></div>
+                    {% if teacher %}<input type="hidden" name="teacher" value="{{ teacher.id }}">{% endif %}
+                    <input type="search" name="q" placeholder="Search" id="search" data-toggle="tooltip" data-bs-placement="bottom" title="Filter by first name and last name" aria-label="Search" class="form-control" value="{{ search_query }}">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row py-3">
+        <div class="col justify-content-center">
+            {% bootstrap_paginate page_obj range=10 extra_pagination_classes="justify-content-center flex-wrap" %}
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Graduating Class</th>
+                    <th scope="col">Classes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in object_list %}
+                    <tr>
+                        <td>{{ student }}</td>
+                        <td>{{ student.graduation_year }}</td>
+                        <td>
+                            {# Classes #}
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Period</th>
+                                        <th scope="col">Teacher Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for period in student.period_set.all %}
+                                        <tr>
+                                            <td>{{ period.number }}</td>
+                                            <td>{{ period.teacher.name }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>There are no classes to display.</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>There is no data to display.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row py-3">
+        <div class="col justify-content-center">
+            {% bootstrap_paginate page_obj range=10 extra_pagination_classes="justify-content-center flex-wrap" %}
+        </div>
+    </div>
+
+{% endblock %}

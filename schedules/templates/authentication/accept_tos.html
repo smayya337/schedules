@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Login</h2>
+    <p>To continue to log in, you must accept the terms below and set a permanent password.</p>
+    <p>The permanent password is used to sign into your account when you can no longer access Ion, typically some time in the summer of your senior year.</p>
+    <p>Your username is <b>{{ request.user.username }}</b>.</p>
+
+    <div style="height: 200px; margin-left: 10px; margin-bottom: 10px; border: 1px solid black;">
+        <div style="height: inherit; overflow: auto; padding: 5px;">
+            <p>Please read these terms of use ("terms of use", "agreement") carefully before using this website.</p>
+            <p>
+                The operators of this website ("us", "we", "our") are not affiliated nor endorsed by the
+                Thomas Jefferson High School for Science and Technology ("TJHSST"), the TJHSST Computer Systems Lab,
+                Fairfax County Public Schools, or any subsidary, affiliate, department, or partner thereof.
+            </p>
+
+            <h5>Conditions of Use</h5>
+            <p>
+                By using this website, you certify that you have read and reviewed this Agreement and that you
+                agree to comply with its terms. If you do not want to be bound by the terms of this Agreement,
+                you are advised to leave the website accordingly. We only grants use and access of this
+                website, its products, and its services to those who have accepted its terms.
+            </p>
+
+            <h5>Intellectual Property</h5>
+            <p>
+                You agree that all materials, products, and services provided on this website are the property of
+                <a href="https://github.com/smayya337/schedules/graphs/contributors" target="_blank">Shreyas Mayya and contributors ("IP Holders")</a>,
+                You also agree that you will not reproduce or redistribute IP Holders' intellectual property in any way,
+                except in accordance with <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" target="_blank">version 3 of the GNU Affero General Public License as published by the Free Software Foundation</a>.
+            </p>
+
+            <h5>User accounts</h5>
+            <p>
+                As a user of this website, you may be asked to register with us and provide private information.
+            </p>
+            <p>
+                You are responsible for ensuring the accuracy of this information, and you are responsible for
+                maintaining the safety and security of your identifying information. You are also responsible for
+                all activities that occur under your account or password.
+            </p>
+            <p>
+                We reserve all rights to terminate accounts and edit or remove content in our
+                sole discretion.
+            </p>
+
+            <h5>Applicable law</h5>
+            <p>
+                By visiting this website, you agree that the laws of the Commonwealth of Virginia, without regard to principles of
+                conflict laws, will govern these terms and conditions, or any dispute of any sort that might come
+                between us and you, or our business partners and associates.
+            </p>
+
+            <h5>Indemnification</h5>
+            <p>
+                You agree to indemnify us and hold us harmless against legal claims
+                and demands that may arise from your use or misuse of our services. We reserve the right to
+                select our own legal counsel.
+            </p>
+
+            <h5>Disclaimer of Warranty</h5>
+            <p>
+                THERE IS NO WARRANTY FOR THE WEBSITE, TO THE EXTENT PERMITTED BY APPLICABLE LAW.
+                EXCEPT WHEN OTHERWISE STATED IN WRITING, WE
+                PROVIDE THE WEBSITE "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+                INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+                PARTICULAR PURPOSE.
+            </p>
+
+            <h5>Limitation on liability</h5>
+            <p>
+                IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL WE BE LIABLE TO YOU FOR DAMAGES,
+                INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY
+                TO USE THE WEBSITE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR
+                LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
+                EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+            </p>
+
+            <p>
+                We reserve the right to edit, modify, and change this Agreement any time. We shall let our
+                users know of these changes through a posting on this website. This Agreement is an understanding
+                between us and the user, and this supersedes and replaces all prior agreements regarding
+                the use of this website.
+            </p>
+        </div>
+    </div>
+
+    {% if request.user.is_student %}
+        <div style="height: 200px; margin-left: 10px; margin-bottom: 10px; border: 1px solid black;">
+            <div style="height: inherit; overflow: auto; padding: 5px;">
+                <h4>Supplement to Terms of Service for Students</h4>
+                <p>Ion records indicate that you are a student and as such are eligible to enter your schedule information. Before you are allowed to, though, you must read and agree to the information below.</p>
+
+                <ul>
+                    <li>
+                        <p>You are not required to enter your information into this website.</p>
+                    </li>
+                    <li>
+                        <p>
+                            However, if you do decide to enter your destination information onto this website, you agree that
+                            you will enter only truthful information and not enter any information intended to mislead anyone. Furthermore, you agree that
+                            you will not advocate for any activities prohibited by any applicable law, regulation, or rule.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            By entering your information into this website, you grant the operators of this website a royalty-free,
+                            perpetual, irrevocable, non-exclusive worldwide license to use, copy, host, index, cache, tag, encode,
+                            edit, transmit, adapt, modify, publish, translate, publicly display, publicly perform, create
+                            derivative works from, make available, and distribute your information (in whole or part) on this website.
+                        </p>
+                    </li>
+                    <li>
+                        <p>Under no circumstance will the operators of this website be liable for the information you enter.</p>
+                    </li>
+                    <li>
+                        <p>
+                            Best efforts are made to ensure that only other TJHSST students have access to the information you enter, however
+                            we do not guarantee the privacy of the information entered.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Staff members do not have the ability to sign into this website, however, upon reasonable demand as deemed by the operators
+                            of this website, we will disclose the website's content to a TJHSST administrator, or to law enforcement or a court of law upon receipt of a lawful subpoena.
+                        </p>
+                    </li>
+                    <li>
+                        <p>Note that future TJHSST students will be able to view published data.</p>
+                    </li>
+                    <li>
+                        <p>
+                            By entering any data into this website, you understand that the operators of this website are not to be held
+                            liable in the event that any information entered is disclosed to parties unauthorized to view such information.
+                        </p>
+                    </li>
+                    <li>
+                        <p>The operators of this website reserve the right to remove any data for any reason.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <form method="post">
+            {% crispy form %}
+        </form>
+    </div>
+
+{% endblock %}
