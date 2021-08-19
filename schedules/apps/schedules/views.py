@@ -27,7 +27,7 @@ class StudentPeriodListView(
         else:
             queryset = User.objects.filter(publish_data=True)
 
-        queryset = queryset.filter(is_senior=True).order_by("last_name", "first_name")
+        queryset = queryset.filter(is_student=True).order_by("last_name", "first_name")
 
         teacher_id: Optional[str] = self.request.GET.get("teacher", None)
         if teacher_id is not None:
@@ -43,7 +43,6 @@ class StudentPeriodListView(
                 Q(first_name__icontains=search_query)
                 | Q(last_name__icontains=search_query)
                 | Q(nickname__icontains=search_query)
-                | Q(biography__icontains=search_query)
             )
 
         return queryset

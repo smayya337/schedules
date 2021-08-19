@@ -18,10 +18,7 @@ from .forms import PeriodForm, ProfilePublishForm
 @login_required
 @require_accept_tos
 def profile_view(request: HttpRequest):
-    # mypy is annoying.
-    test_scores = TestScore.objects.filter(user=request.user)  # type: ignore
     periods = Period.objects.filter(user=request.user)  # type: ignore
-
     # A POST request would mean that the user is saving their profile publication status
     if request.method == "POST":
         profile_form = ProfilePublishForm(request.POST, instance=request.user)
@@ -33,7 +30,6 @@ def profile_view(request: HttpRequest):
         profile_form = ProfilePublishForm(instance=request.user)
 
     context = {
-        "test_scores_list": test_scores,
         "periods_list": periods,
         "profile_form": profile_form,
     }
